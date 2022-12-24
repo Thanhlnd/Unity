@@ -44,8 +44,7 @@ public class Bird : MonoBehaviour
         GetComponent<Rigidbody2D>().AddForce(vectorForce);
         GetComponent<Rigidbody2D>().gravityScale = 1;
 
-        //Hàm gọi phương thức sau ** giây
-        Invoke("ResetBird", 4f);
+
 
         // StartCoroutine(respawnBird());
 
@@ -86,12 +85,15 @@ public class Bird : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             GetComponent<Rigidbody2D>().angularVelocity = 0;
+            //Hàm gọi phương thức sau ** giây
+            Invoke("ResetBird", 1.5f);
         }
     }
 
     //reset bird
     void ResetBird()
     {
+        Debug.Log("run reset");
         transform.position = FirstPos;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         GetComponent<Rigidbody2D>().gravityScale = 0;
