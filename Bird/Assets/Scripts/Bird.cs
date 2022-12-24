@@ -45,7 +45,7 @@ public class Bird : MonoBehaviour
         GetComponent<Rigidbody2D>().gravityScale = 1;
 
         //Hàm gọi phương thức sau ** giây
-        Invoke("ResetBird", 3f);
+        Invoke("ResetBird", 4f);
 
         // StartCoroutine(respawnBird());
 
@@ -80,11 +80,18 @@ public class Bird : MonoBehaviour
             GameObject enemy = Instantiate(newEnemyBird, spawnPos.position, Quaternion.identity);
 
             enemy.GetComponent<CircleCollider2D>().enabled = true;
+
+        }
+        if (other.collider.tag == "Bg")
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            GetComponent<Rigidbody2D>().angularVelocity = 0;
         }
     }
 
     //reset bird
-    void ResetBird(){
+    void ResetBird()
+    {
         transform.position = FirstPos;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         GetComponent<Rigidbody2D>().gravityScale = 0;
