@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class Bird : MonoBehaviour
 {
-
-
-    public GameObject newBird;
-
-    public GameObject newEnemyBird;
-
-    public Transform spawnPos;
+    [SerializeField] private GameObject newBird;
+   
+    [SerializeField] private GameObject newEnemyBird;
+   
+    [SerializeField] private Transform spawnPos;
 
     //FirstPos
     Vector3 FirstPos;
 
     //Range
-    public float limitRange;
+    [SerializeField] private float limitRange;
 
+    private Rigidbody2D Rg2d;
+    
 
     public void Start()
     {
         FirstPos = transform.position;
+        Rg2d = GetComponent<Rigidbody2D>();
     }
 
     public void OnMouseDrag()
@@ -41,8 +42,9 @@ public class Bird : MonoBehaviour
     public void OnMouseUp()
     {
         Vector3 vectorForce = (FirstPos - transform.position) * 300;
-        GetComponent<Rigidbody2D>().AddForce(vectorForce);
-        GetComponent<Rigidbody2D>().gravityScale = 1;
+        Rg2d.AddForce(vectorForce);
+
+        Rg2d.gravityScale = 1f;
 
 
 
@@ -83,8 +85,8 @@ public class Bird : MonoBehaviour
         }
         if (other.collider.tag == "Bg")
         {
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            GetComponent<Rigidbody2D>().angularVelocity = 0;
+            Rg2d.velocity = Vector2.zero;
+            Rg2d.angularVelocity = 0;
             //Hàm gọi phương thức sau ** giây
             Invoke("ResetBird", 1.5f);
         }
@@ -95,9 +97,9 @@ public class Bird : MonoBehaviour
     {
         Debug.Log("run reset");
         transform.position = FirstPos;
-        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        GetComponent<Rigidbody2D>().gravityScale = 0;
-        GetComponent<Rigidbody2D>().angularVelocity = 0;
+        Rg2d.velocity = Vector2.zero;
+        Rg2d.gravityScale = 0;
+        Rg2d.angularVelocity = 0;
         transform.rotation = Quaternion.identity;
     }
 }
